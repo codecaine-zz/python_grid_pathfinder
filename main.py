@@ -24,7 +24,7 @@ class AStar:
             new_x, new_y = current[0] + dx, current[1] + dy
             if (0 <= new_x < self.rows and
                 0 <= new_y < self.cols and
-                self.grid[new_x][new_y] != 1):
+                    self.grid[new_x][new_y] != 1):
                 neighbors.append((new_x, new_y))
         return neighbors
 
@@ -57,8 +57,10 @@ class AStar:
                     continue
                 came_from[neighbor] = current
                 g_score[neighbor] = tentative_g_score
-                f_score[neighbor] = g_score[neighbor] + self.heuristic(neighbor, goal)
+                f_score[neighbor] = g_score[neighbor] + \
+                    self.heuristic(neighbor, goal)
         return None
+
 
 def generate_random_grid(rows, cols, obstacle_count):
     grid = [[0 for _ in range(cols)] for _ in range(rows)]
@@ -74,6 +76,7 @@ def generate_random_grid(rows, cols, obstacle_count):
     grid[start[0]][start[1]] = 3
     grid[goal[0]][goal[1]] = 4
     return grid, start, goal
+
 
 def main():
     rows, cols = 5, 5
@@ -91,14 +94,6 @@ def main():
                 grid_copy[x][y] = 4
             elif (x, y) != goal:
                 grid_copy[x][y] = 2
-        # Remove ANSI color codes
-        # RESET = "\033[0m"
-        # COLORS = {
-        #     'S': "\033[92m",
-        #     'X': "\033[91m",
-        #     '●': "\033[93m",
-        #     '■': "\033[1;95m"
-        # }
 
         # Update path_symbols with emojis
         path_symbols = {
@@ -112,6 +107,7 @@ def main():
             print(' '.join(path_symbols[cell] for cell in row))
     else:
         print("No path found!")
+
 
 if __name__ == "__main__":
     main()
